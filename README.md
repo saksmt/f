@@ -32,7 +32,7 @@ class Example {
 }
 ```
 
-## Download
+## Download (WIP: need to publish to sonatype)
 
 ```xml
 <dependency>

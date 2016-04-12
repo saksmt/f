@@ -5,6 +5,7 @@ import run.smt.f.definition.predicate.Predicate1;
 import run.smt.f.definition.predicate.Predicate2;
 
 /**
+ * Contains boolean checks functional representation
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface LogicChecks {
@@ -33,22 +34,22 @@ public interface LogicChecks {
     }
 
     static <A> Predicate1<A> equalTo(A arg) {
-        return (a) -> (a == arg) || (a != null && a.equals(arg));
+        return a -> (a == arg) || (a != null && a.equals(arg));
     }
 
     static <A> Predicate1<A> notEqualTo(A arg) {
-        return (a) -> !((a == arg) || (a != null && a.equals(arg)));
+        return a -> !((a == arg) || (a != null && a.equals(arg)));
     }
 
     static Predicate1<?> isNull() {
-        return (a) -> a == null;
+        return a -> a == null;
     }
 
     static Predicate1<?> isNotNull() {
-        return (a) -> a != null;
+        return a -> a != null;
     }
 
     static <A> Predicate1<Object> isInstanceOf(Class<A> clazz) {
-        return (a) -> a != null && a.getClass().isAssignableFrom(clazz);
+        return a -> a != null && a.getClass().isAssignableFrom(clazz);
     }
 }

@@ -5,6 +5,7 @@ import run.smt.f.definition.function.Function1;
 import run.smt.f.definition.function.Function2;
 
 /**
+ * Contains base operator functional representation
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface BaseOperator {
@@ -50,70 +51,70 @@ public interface BaseOperator {
 
 
     static Function1<? extends Number, Long> plus(long value) {
-        return (a) -> a.longValue() + value;
+        return a -> a.longValue() + value;
     }
 
     static Function1<? extends Number, Integer> plus(int value) {
-        return (a) -> a.intValue() + value;
+        return a -> a.intValue() + value;
     }
 
     static Function1<? extends Number, Float> plus(float value) {
-        return (a) -> a.floatValue() + value;
+        return a -> a.floatValue() + value;
     }
 
     static Function1<? extends Number, Double> plus(double value) {
-        return (a) -> a.doubleValue() + value;
+        return a -> a.doubleValue() + value;
     }
 
 
     static Function1<? extends Number, Long> minus(long value) {
-        return (a) -> a.longValue() - value;
+        return a -> a.longValue() - value;
     }
 
     static Function1<? extends Number, Integer> minus(int value) {
-        return (a) -> a.intValue() - value;
+        return a -> a.intValue() - value;
     }
 
     static Function1<? extends Number, Float> minus(float value) {
-        return (a) -> a.floatValue() - value;
+        return a -> a.floatValue() - value;
     }
 
     static Function1<? extends Number, Double> minus(double value) {
-        return (a) -> a.doubleValue() - value;
+        return a -> a.doubleValue() - value;
     }
 
 
     static Function1<? extends Number, Long> divide(long value) {
-        return (a) -> a.longValue() / value;
+        return a -> a.longValue() / value;
     }
 
     static Function1<? extends Number, Integer> divide(int value) {
-        return (a) -> a.intValue() / value;
+        return a -> a.intValue() / value;
     }
 
     static Function1<? extends Number, Float> divide(float value) {
-        return (a) -> a.floatValue() / value;
+        return a -> a.floatValue() / value;
     }
 
     static Function1<? extends Number, Double> divide(double value) {
-        return (a) -> a.doubleValue() / value;
+        return a -> a.doubleValue() / value;
     }
 
 
     static Function1<? extends Number, Long> multiply(long value) {
-        return (a) -> a.longValue() * value;
+        return a -> a.longValue() * value;
     }
 
     static Function1<? extends Number, Integer> multiply(int value) {
-        return (a) -> a.intValue() * value;
+        return a -> a.intValue() * value;
     }
 
     static Function1<? extends Number, Float> multiply(float value) {
-        return (a) -> a.floatValue() * value;
+        return a -> a.floatValue() * value;
     }
 
     static Function1<? extends Number, Double> multiply(double value) {
-        return (a) -> a.doubleValue() * value;
+        return a -> a.doubleValue() * value;
     }
 
 

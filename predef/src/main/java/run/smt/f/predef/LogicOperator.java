@@ -5,6 +5,7 @@ import run.smt.f.definition.predicate.Predicate1;
 import run.smt.f.definition.predicate.Predicate2;
 
 /**
+ * Contains logic operators functional representation
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface LogicOperator {

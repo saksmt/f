@@ -10,6 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
+    <name>f :: predicate</name>
     <artifactId>predicate</artifactId>
     <version>${parent.version}</version>
 

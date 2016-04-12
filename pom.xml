@@ -8,6 +8,18 @@
     <artifactId>all</artifactId>
     <version>1.0.0</version>
 
+    <name>f</name>
+
+    <description>Provides some useful (especially for method references) functional methods for Java 8</description>
+    <url>https://github.com/saksmt/f</url>
+
+    <developers>
+        <developer>
+            <name>Kirill Saksin</name>
+            <email>smt@smt.run</email>
+        </developer>
+    </developers>
+
     <packaging>pom</packaging>
 
     <modules>
@@ -93,6 +105,25 @@
                             <goals>
                                 <goal>sign</goal>
                             </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <!-- Creating empty javaDoc jar -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>empty-javadoc-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <classifier>javadoc</classifier>
+                                <classesDirectory>${basedir}/javadoc</classesDirectory>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>

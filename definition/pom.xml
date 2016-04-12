@@ -10,6 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
+    <name>f :: definition</name>
     <artifactId>definition</artifactId>
     <version>${parent.version}</version>
 

@@ -8,6 +8,7 @@ import run.smt.f.definition.procedure.Procedure1;
 import run.smt.f.definition.procedure.Procedure2;
 
 /**
+ * Contains combinations for reverse functional composition (piping)
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface Pipes {

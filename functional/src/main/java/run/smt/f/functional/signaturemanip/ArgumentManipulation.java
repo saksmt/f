@@ -8,22 +8,23 @@ import run.smt.f.definition.procedure.Procedure1;
 import run.smt.f.definition.procedure.Procedure2;
 
 /**
+ * Contains methods for binding and expanding functions
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface ArgumentManipulation {
-    static <A> Function0<?> bind(Function1<A, ?> f, A arg) {
+    static <A, R> Function0<R> bind(Function1<A, R> f, A arg) {
         return f.bind(arg);
     }
 
-    static <A, B> Function0<?> bind(Function2<A, B, ?> f, A a, B b) {
+    static <A, B, R> Function0<R> bind(Function2<A, B, R> f, A a, B b) {
         return f.bind(a, b);
     }
 
-    static <A, B> Function1<B, ?> bind(Function2<A, B, ?> f, A arg) {
+    static <A, B, R> Function1<B, R> bind(Function2<A, B, R> f, A arg) {
         return f.bind(arg);
     }
 
-    static <A, B> Function1<A, ?> bindLast(Function2<A, B, ?> f, B arg) {
+    static <A, B, R> Function1<A, R> bindLast(Function2<A, B, R> f, B arg) {
         return f.bindLast(arg);
     }
 
@@ -45,11 +46,11 @@ public interface ArgumentManipulation {
     }
 
 
-    static <A> Function1<A, ?> expand(Function0<?> f) {
+    static <A, R> Function1<A, R> expand(Function0<R> f) {
         return f.expand();
     }
 
-    static <A, B> Function2<A, B, ?> expand(Function1<A, ?> f) {
+    static <A, B, R> Function2<A, B, R> expand(Function1<A, R> f) {
         return f.expand();
     }
 
@@ -67,7 +68,7 @@ public interface ArgumentManipulation {
         return f.flip();
     }
 
-    static <A, B> Function2<B, A, ?> flip(Function2<A, B, ?> f) {
+    static <A, B, R> Function2<B, A, R> flip(Function2<A, B, R> f) {
         return f.flip();
     }
 }

@@ -8,6 +8,7 @@ import run.smt.f.definition.procedure.Procedure1;
 import run.smt.f.definition.procedure.Procedure2;
 
 /**
+ * Contains all possible combinations for functional composition
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface Composition {

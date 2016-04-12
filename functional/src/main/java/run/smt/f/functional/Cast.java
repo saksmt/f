@@ -8,6 +8,7 @@ import run.smt.f.definition.procedure.Procedure1;
 import run.smt.f.definition.procedure.Procedure2;
 
 /**
+ * Class for simple cast of functions, especially useful for method references
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface Cast {

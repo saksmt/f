@@ -8,6 +8,7 @@ import run.smt.f.definition.procedure.Procedure1;
 import run.smt.f.definition.procedure.Procedure2;
 
 /**
+ * Contains functions for providing and suppressing return of functions
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface ReturnManipulation {
@@ -24,15 +25,15 @@ public interface ReturnManipulation {
     }
 
 
-    static <R> Procedure0 suppressReturn(Function0<R> f) {
+    static Procedure0 suppressReturn(Function0<?> f) {
         return f.suppressReturn();
     }
 
-    static <A, R> Procedure1<A> suppressReturn(Function1<A, R> f) {
+    static <A> Procedure1<A> suppressReturn(Function1<A, ?> f) {
         return f.suppressReturn();
     }
 
-    static <A, B, R> Procedure2<A, B> suppressReturn(Function2<A, B, R> f) {
+    static <A, B> Procedure2<A, B> suppressReturn(Function2<A, B, ?> f) {
         return f.suppressReturn();
     }
 }

@@ -1,6 +1,5 @@
 package run.smt.f.definition.procedure;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +29,12 @@ public class Procedure0Test {
 
     @Test
     public void testProvideReturn() throws Exception {
-        Assert.assertEquals(10, increment.provideReturn(10).apply().intValue());
+        assertEquals(10, increment.provideReturn(10).apply().intValue());
         assertEquals(1, i.get());
+    }
+
+    @Test
+    public void smokeIdentity() {
+        Procedure0.identity().apply();
     }
 }

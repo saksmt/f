@@ -60,4 +60,17 @@ public class Function1Test {
         ((Function1<Integer, Integer>) a::getAndSet).suppressReturn().apply(2);
         assertEquals(2, a.get());
     }
+
+    @Test
+    public void testIdentity() {
+        Object expected = new Object();
+        assertEquals(expected, Function1.identity().apply(expected));
+    }
+
+    @Test
+    public void testConstant() {
+        Object expected = new Object();
+        assertEquals(expected, Function1.constant(expected).apply(null));
+        assertEquals(expected, Function1.constant(expected).apply(new Object()));
+    }
 }

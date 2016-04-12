@@ -37,4 +37,15 @@ public class Function0Test {
         assertEquals(1, f.expand().apply(10).intValue());
         assertEquals(1, f.expand().apply(0).intValue());
     }
+
+    @Test
+    public void testIdentity() {
+        assertNull(Function0.identity().apply());
+    }
+
+    @Test
+    public void testConstant() {
+        Object constant = new Object();
+        assertEquals(constant, Function0.constant(constant).apply());
+    }
 }

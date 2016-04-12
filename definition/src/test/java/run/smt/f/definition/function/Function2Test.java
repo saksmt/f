@@ -147,4 +147,31 @@ public class Function2Test {
         assertEquals(10, a.get());
         assertEquals(2, b.get());
     }
+
+    @Test
+    public void testIdentity() {
+        assertNull(Function2.identity().apply(new Object(), new Object()));
+        assertNull(Function2.identity().apply(null, null));
+    }
+
+    @Test
+    public void testLeftIdentity() {
+        Object expected = new Object();
+        assertEquals(expected, Function2.leftIdentity().apply(expected, null));
+        assertEquals(expected, Function2.leftIdentity().apply(expected, new Object()));
+    }
+
+    @Test
+    public void testRightIdentity() {
+        Object expected = new Object();
+        assertEquals(expected, Function2.rightIdentity().apply(null, expected));
+        assertEquals(expected, Function2.rightIdentity().apply(new Object(), expected));
+    }
+
+    @Test
+    public void testConstant() {
+        Object expected = new Object();
+        assertEquals(expected, Function2.constant(expected).apply(null, null));
+        assertEquals(expected, Function2.constant(expected).apply(new Object(), new Object()));
+    }
 }

@@ -104,4 +104,10 @@ public class Procedure2Test {
         assertEquals(1, a.get());
         assertEquals(2, b.get());
     }
+
+    @Test
+    public void smokeIdentity() {
+        Procedure2.identity().apply(new Object(), new Object());
+        Procedure2.identity().apply(null, null);
+    }
 }

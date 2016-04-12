@@ -59,4 +59,10 @@ public class Procedure1Test {
         Assert.assertEquals(20, save.provideReturn(20).apply(10).intValue());
         assertEquals(10, i.get());
     }
+
+    @Test
+    public void smokeIdentity() {
+        Procedure1.identity().apply(new Object());
+        Procedure1.identity().apply(null);
+    }
 }

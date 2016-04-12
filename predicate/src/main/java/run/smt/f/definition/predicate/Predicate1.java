@@ -3,6 +3,8 @@ package run.smt.f.definition.predicate;
 import run.smt.f.definition.function.Function1;
 
 /**
+ * Represents predicate with one argument (function with one argument and boolean return value)
+ * and all logic operations (like logical OR, logical AND and so on)
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface Predicate1<A> extends Function1<A, Boolean> {

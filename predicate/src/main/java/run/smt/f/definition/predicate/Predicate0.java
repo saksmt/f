@@ -3,6 +3,8 @@ package run.smt.f.definition.predicate;
 import run.smt.f.definition.function.Function0;
 
 /**
+ * Represents predicate with no arguments (function with no arguments and boolean return value)
+ * and all logic operations (like logical OR, logical AND and so on)
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface Predicate0 extends Function0<Boolean> {

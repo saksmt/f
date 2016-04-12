@@ -3,6 +3,8 @@ package run.smt.f.definition.predicate;
 import run.smt.f.definition.function.Function2;
 
 /**
+ * Represents predicate with 2 arguments (function with 2 arguments and boolean return value)
+ * and all logic operations (like logical OR, logical AND and so on)
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface Predicate2<A, B> extends Function2<A, B, Boolean> {

@@ -32,6 +32,13 @@ class Example {
 }
 ```
 
+## Modules
+
+ - `definition` - Definition of functional interfaces
+ - `functional` - Wrapper for easier usage with method references, contains all methods of functional interfaces as static methods
+ - `predicate` - Definition of predicates, extended methods in functional interfaces for easier usage with functions returning boolean values
+ - `predef` - Predefined operations and checks for both simple functional interfaces from `definition` and `predicate`
+
 ## Download (WIP: need to publish to sonatype)
 
 ```xml

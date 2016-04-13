@@ -26,7 +26,7 @@ class Example {
     private boolean isGood(Object elem) {}
     private boolean isWrong(Object elem) {}
     private Arg getArg() {}
-    private Pojo convertToPojoWithArg(Object elem, Arg arg) {}
+    private Pojo convertToPojoWithArg(Arg arg, Object elem) {}
     private void dontNeedArgs() {}
 
 }
@@ -38,8 +38,9 @@ class Example {
  - `functional` - Wrapper for easier usage with method references, contains all methods of functional interfaces as static methods
  - `predicate` - Definition of predicates, extended methods in functional interfaces for easier usage with functions returning boolean values
  - `predef` - Predefined operations and checks for both simple functional interfaces from `definition` and `predicate`
+ - `all` - Parent module for all listed above
 
-## Download (WIP: need to publish to sonatype)
+## Download
 
 ```xml
 <dependency>

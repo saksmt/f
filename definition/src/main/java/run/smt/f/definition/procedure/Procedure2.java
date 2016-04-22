@@ -1,59 +1,69 @@
 package run.smt.f.definition.procedure;
 
-import run.smt.f.definition.function.Function0;
 import run.smt.f.definition.function.Function2;
-import run.smt.f.definition.function.Function1;
+
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Represents function taking 2 arguments and returning no value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 @FunctionalInterface
-public interface Procedure2<A, B> {
+public interface Procedure2<A, B> extends BiConsumer<A, B> {
+    @Override
+    default void accept(A a, B b) {
+        apply(a, b);
+    }
+
     /**
      * Execute function
      */
     void apply(A a, B b);
 
+
+
     /**
      * Functional composition
      */
-    default <AA, BB> Procedure2<AA, BB> compose(Function1<AA, A> gA, Function1<BB, B> gB) {
+    default <AA, BB> Procedure2<AA, BB> compose(Function<AA, A> gA, Function<BB, B> gB) {
         return (a, b) -> apply(gA.apply(a), gB.apply(b));
     }
 
     /**
      * Functional composition
      */
-    default <BB> Procedure1<BB> compose(Function0<A> gA, Function1<BB, B> gB) {
-        return b -> apply(gA.apply(), gB.apply(b));
+    default <BB> Procedure1<BB> compose(Supplier<A> gA, Function<BB, B> gB) {
+        return b -> apply(gA.get(), gB.apply(b));
     }
 
     /**
      * Functional composition
      */
-    default <AA> Procedure1<AA> compose(Function1<AA, A> gA, Function0<B> gB) {
-        return b -> apply(gA.apply(b), gB.apply());
+    default <AA> Procedure1<AA> compose(Function<AA, A> gA, Supplier<B> gB) {
+        return b -> apply(gA.apply(b), gB.get());
     }
 
     /**
      * Functional composition
      */
-    default Procedure0 compose(Function0<A> gA, Function0<B> gB) {
-        return () -> apply(gA.apply(), gB.apply());
+    default Procedure0 compose(Supplier<A> gA, Supplier<B> gB) {
+        return () -> apply(gA.get(), gB.get());
     }
 
     /**
      * Functional composition for right argument
      */
-    default <BB> Procedure2<A, BB> composeRight(Function2<A, BB, B> g) {
+    default <BB> Procedure2<A, BB> composeRight(BiFunction<A, BB, B> g) {
         return (a, b) -> apply(a, g.apply(a, b));
     }
 
     /**
      * Functional composition for left argument
      */
-    default <AA> Procedure2<AA, B> composeLeft(Function2<AA, B, A> g) {
+    default <AA> Procedure2<AA, B> composeLeft(BiFunction<AA, B, A> g) {
         return (a, b) -> apply(g.apply(a, b), b);
     }
 

@@ -1,14 +1,22 @@
 package run.smt.f.definition.function;
 
 import run.smt.f.definition.procedure.Procedure0;
-import run.smt.f.definition.procedure.Procedure1;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Represents function with no arguments and a return value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 @FunctionalInterface
-public interface Function0<R> {
+public interface Function0<R> extends Supplier<R> {
+    @Override
+    default R get() {
+        return apply();
+    }
+
     /**
      * Executes function
      */
@@ -17,15 +25,15 @@ public interface Function0<R> {
     /**
      * Reverse functional composition
      */
-    default <RR> Function0<RR> andThen(Function1<R, RR> g) {
+    default <RR> Function0<RR> andThen(Function<R, RR> g) {
         return () -> g.apply(apply());
     }
 
     /**
      * Reverse functional composition
      */
-    default Procedure0 andThen(Procedure1<R> g) {
-        return () -> g.apply(apply());
+    default Procedure0 andThen(Consumer<R> g) {
+        return () -> g.accept(apply());
     }
 
     /**

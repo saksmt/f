@@ -1,15 +1,23 @@
 package run.smt.f.definition.procedure;
 
-import run.smt.f.definition.function.Function0;
 import run.smt.f.definition.function.Function1;
-import run.smt.f.definition.function.Function2;
+
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Represents function taking one argument and returning no value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 @FunctionalInterface
-public interface Procedure1<A> {
+public interface Procedure1<A> extends Consumer<A> {
+    @Override
+    default void accept(A a) {
+        apply(a);
+    }
+
     /**
      * Execute function
      */
@@ -18,21 +26,21 @@ public interface Procedure1<A> {
     /**
      * Functional composition
      */
-    default Procedure0 compose(Function0<A> g) {
-        return () -> apply(g.apply());
+    default Procedure0 compose(Supplier<A> g) {
+        return () -> apply(g.get());
     }
 
     /**
      * Functional composition
      */
-    default <AA> Procedure1<AA> compose(Function1<AA, A> g) {
+    default <AA> Procedure1<AA> compose(Function<AA, A> g) {
         return a -> apply(g.apply(a));
     }
 
     /**
      * Functional composition
      */
-    default <AA, B> Procedure2<AA, B> compose(Function2<AA, B, A> g) {
+    default <AA, B> Procedure2<AA, B> compose(BiFunction<AA, B, A> g) {
         return (a, b) -> apply(g.apply(a, b));
     }
 

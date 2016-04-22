@@ -7,7 +7,13 @@ import run.smt.f.definition.function.Function0;
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 @FunctionalInterface
-public interface Procedure0 {
+public interface Procedure0 extends Runnable {
+
+    @Override
+    default void run() {
+        apply();
+    }
+
     /**
      * Execute function
      */

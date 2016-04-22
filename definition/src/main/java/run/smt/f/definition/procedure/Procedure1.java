@@ -28,7 +28,7 @@ public interface Procedure1<A> extends Consumer<A> {
     /**
      * Functional composition
      */
-    default Procedure0 compose(Supplier<A> g) {
+    default Procedure0 compose(Supplier<? extends A> g) {
         requireNonNull(g);
         return () -> apply(g.get());
     }
@@ -36,7 +36,7 @@ public interface Procedure1<A> extends Consumer<A> {
     /**
      * Functional composition
      */
-    default <AA> Procedure1<AA> compose(Function<AA, A> g) {
+    default <AA> Procedure1<AA> compose(Function<? super AA, ? extends A> g) {
         requireNonNull(g);
         return a -> apply(g.apply(a));
     }
@@ -44,7 +44,7 @@ public interface Procedure1<A> extends Consumer<A> {
     /**
      * Functional composition
      */
-    default <AA, B> Procedure2<AA, B> compose(BiFunction<AA, B, A> g) {
+    default <AA, B> Procedure2<AA, B> compose(BiFunction<? super AA, ? super B, ? extends A> g) {
         requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b));
     }

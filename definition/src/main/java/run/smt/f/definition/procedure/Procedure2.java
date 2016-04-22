@@ -30,7 +30,7 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
     /**
      * Functional composition
      */
-    default <AA, BB> Procedure2<AA, BB> compose(Function<AA, A> gA, Function<BB, B> gB) {
+    default <AA, BB> Procedure2<AA, BB> compose(Function<? super AA, ? extends A> gA, Function<? super BB, ? extends B> gB) {
         requireNonNull(gA);
         requireNonNull(gB);
         return (a, b) -> apply(gA.apply(a), gB.apply(b));
@@ -39,7 +39,7 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
     /**
      * Functional composition
      */
-    default <BB> Procedure1<BB> compose(Supplier<A> gA, Function<BB, B> gB) {
+    default <BB> Procedure1<BB> compose(Supplier<? extends A> gA, Function<? super BB, ? extends B> gB) {
         requireNonNull(gA);
         requireNonNull(gB);
         return b -> apply(gA.get(), gB.apply(b));
@@ -48,7 +48,7 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
     /**
      * Functional composition
      */
-    default <AA> Procedure1<AA> compose(Function<AA, A> gA, Supplier<B> gB) {
+    default <AA> Procedure1<AA> compose(Function<? super AA, ? extends A> gA, Supplier<? extends B> gB) {
         requireNonNull(gA);
         requireNonNull(gB);
         return b -> apply(gA.apply(b), gB.get());
@@ -57,7 +57,7 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
     /**
      * Functional composition
      */
-    default Procedure0 compose(Supplier<A> gA, Supplier<B> gB) {
+    default Procedure0 compose(Supplier<? extends A> gA, Supplier<? extends B> gB) {
         requireNonNull(gA);
         requireNonNull(gB);
         return () -> apply(gA.get(), gB.get());
@@ -66,7 +66,7 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
     /**
      * Functional composition for right argument
      */
-    default <BB> Procedure2<A, BB> composeRight(BiFunction<A, BB, B> g) {
+    default <BB> Procedure2<A, BB> composeRight(BiFunction<? super A, ? super BB, ? extends B> g) {
         requireNonNull(g);
         return (a, b) -> apply(a, g.apply(a, b));
     }
@@ -74,7 +74,7 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
     /**
      * Functional composition for left argument
      */
-    default <AA> Procedure2<AA, B> composeLeft(BiFunction<AA, B, A> g) {
+    default <AA> Procedure2<AA, B> composeLeft(BiFunction<? super AA, ? super B, ? extends A> g) {
         requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b), b);
     }

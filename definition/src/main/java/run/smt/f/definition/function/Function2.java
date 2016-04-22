@@ -21,7 +21,7 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Functional composition for left argument
      */
-    default <AA> Function2<AA, B, R> composeLeft(BiFunction<AA, B, A> g) {
+    default <AA> Function2<AA, B, R> composeLeft(BiFunction<? super AA, ? super B, ? extends A> g) {
         requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b), b);
     }
@@ -29,7 +29,7 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Functional composition for right argument
      */
-    default <BB> Function2<A, BB, R> composeRight(BiFunction<A, BB, B> g) {
+    default <BB> Function2<A, BB, R> composeRight(BiFunction<? super A, ? super BB, ? extends B> g) {
         requireNonNull(g);
         return (a, b) -> apply(a, g.apply(a, b));
     }
@@ -37,7 +37,7 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Functional composition
      */
-    default <AA, BB> Function2<AA, BB, R> compose(Function<AA, A> gA, Function<BB, B> gB) {
+    default <AA, BB> Function2<AA, BB, R> compose(Function<? super AA, ? extends A> gA, Function<? super BB, ? extends B> gB) {
         requireNonNull(gA);
         requireNonNull(gB);
         return (a, b) -> apply(gA.apply(a), gB.apply(b));
@@ -46,25 +46,25 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Functional composition
      */
-    default <AA> Function1<AA, R> compose(Function<AA, A> gA, Supplier<B> gB) {
+    default <AA> Function1<AA, R> compose(Function<? super AA, ? extends A> gA, Supplier<? extends B> gB) {
         requireNonNull(gA);
         requireNonNull(gB);
-        return (a) -> apply(gA.apply(a), gB.get());
+        return a -> apply(gA.apply(a), gB.get());
     }
 
     /**
      * Functional composition
      */
-    default <BB> Function1<BB, R> compose(Supplier<A> gB, Function<BB, B> gA) {
+    default <BB> Function1<BB, R> compose(Supplier<? extends A> gB, Function<? super BB, ? extends B> gA) {
         requireNonNull(gA);
         requireNonNull(gB);
-        return (a) -> apply(gB.get(), gA.apply(a));
+        return a -> apply(gB.get(), gA.apply(a));
     }
 
     /**
      * Functional composition
      */
-    default Function0<R> compose(Supplier<A> gA, Supplier<B> gB) {
+    default Function0<R> compose(Supplier<? extends A> gA, Supplier<? extends B> gB) {
         requireNonNull(gA);
         requireNonNull(gB);
         return () -> apply(gA.get(), gB.get());
@@ -80,7 +80,7 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Reverse functional composition
      */
-    default Procedure2<A, B> andThen(Consumer<R> g) {
+    default Procedure2<A, B> andThen(Consumer<? super R> g) {
         requireNonNull(g);
         return (a, b) -> g.accept(apply(a, b));
     }
@@ -88,7 +88,7 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Reverse functional composition for right argument
      */
-    default Procedure2<A, B> andThenRight(BiConsumer<A, R> g) {
+    default Procedure2<A, B> andThenRight(BiConsumer<? super A, ? super R> g) {
         requireNonNull(g);
         return (a, b) -> g.accept(a, apply(a, b));
     }
@@ -96,7 +96,7 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Reverse functional composition for left argument
      */
-    default Procedure2<A, B> andThenLeft(BiConsumer<R, B> g) {
+    default Procedure2<A, B> andThenLeft(BiConsumer<? super R, ? super B> g) {
         requireNonNull(g);
         return (a, b) -> g.accept(apply(a, b), b);
     }
@@ -104,7 +104,7 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Reverse functional composition for right argument
      */
-    default <RR> Function2<A, B, RR> andThenRight(BiFunction<A, R, RR> g) {
+    default <RR> Function2<A, B, RR> andThenRight(BiFunction<? super A, ? super R, ? extends RR> g) {
         requireNonNull(g);
         return (a, b) -> g.apply(a, apply(a, b));
     }
@@ -112,7 +112,7 @@ public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Reverse functional composition for left argument
      */
-    default <RR> Function2<A, B, RR> andThenLeft(BiFunction<R, B, RR> g) {
+    default <RR> Function2<A, B, RR> andThenLeft(BiFunction<? super R, ? super B, ? extends RR> g) {
         requireNonNull(g);
         return (a, b) -> g.apply(apply(a, b), b);
     }

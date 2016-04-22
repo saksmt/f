@@ -27,7 +27,7 @@ public interface Function0<R> extends Supplier<R> {
     /**
      * Reverse functional composition
      */
-    default <RR> Function0<RR> andThen(Function<R, RR> g) {
+    default <RR> Function0<RR> andThen(Function<? super R, ? extends RR> g) {
         requireNonNull(g);
         return () -> g.apply(apply());
     }
@@ -35,7 +35,7 @@ public interface Function0<R> extends Supplier<R> {
     /**
      * Reverse functional composition
      */
-    default Procedure0 andThen(Consumer<R> g) {
+    default Procedure0 andThen(Consumer<? super R> g) {
         requireNonNull(g);
         return () -> g.accept(apply());
     }

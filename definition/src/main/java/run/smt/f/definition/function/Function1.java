@@ -30,7 +30,7 @@ public interface Function1<A, R> extends Function<A, R> {
     /**
      * Reverse functional composition
      */
-    default Procedure1<A> andThen(Consumer<R> g) {
+    default Procedure1<A> andThen(Consumer<? super R> g) {
         requireNonNull(g);
         return a -> g.accept(apply(a));
     }
@@ -38,7 +38,7 @@ public interface Function1<A, R> extends Function<A, R> {
     /**
      * Functional composition
      */
-    default Function0<R> compose(Supplier<A> f) {
+    default Function0<R> compose(Supplier<? extends A> f) {
         requireNonNull(f);
         return () -> apply(f.get());
     }
@@ -52,7 +52,7 @@ public interface Function1<A, R> extends Function<A, R> {
     /**
      * Functional composition
      */
-    default <AA, B> Function2<AA, B, R> compose(BiFunction<AA, B, A> g) {
+    default <AA, B> Function2<AA, B, R> compose(BiFunction<? super AA, ? super B, ? extends A> g) {
         requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b));
     }

@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents function taking one argument and returning no value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
@@ -27,6 +29,7 @@ public interface Procedure1<A> extends Consumer<A> {
      * Functional composition
      */
     default Procedure0 compose(Supplier<A> g) {
+        requireNonNull(g);
         return () -> apply(g.get());
     }
 
@@ -34,6 +37,7 @@ public interface Procedure1<A> extends Consumer<A> {
      * Functional composition
      */
     default <AA> Procedure1<AA> compose(Function<AA, A> g) {
+        requireNonNull(g);
         return a -> apply(g.apply(a));
     }
 
@@ -41,6 +45,7 @@ public interface Procedure1<A> extends Consumer<A> {
      * Functional composition
      */
     default <AA, B> Procedure2<AA, B> compose(BiFunction<AA, B, A> g) {
+        requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b));
     }
 

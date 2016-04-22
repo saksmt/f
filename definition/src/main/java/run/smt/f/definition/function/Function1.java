@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents function with one argument and a return value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
@@ -20,14 +22,16 @@ public interface Function1<A, R> extends Function<A, R> {
     R apply(A a);
 
     @Override
-    default <RR> Function1<A, RR> andThen(Function<? super R, ? extends RR> after) {
-        return a -> after.apply(apply(a));
+    default <RR> Function1<A, RR> andThen(Function<? super R, ? extends RR> g) {
+        requireNonNull(g);
+        return a -> g.apply(apply(a));
     }
 
     /**
      * Reverse functional composition
      */
     default Procedure1<A> andThen(Consumer<R> g) {
+        requireNonNull(g);
         return a -> g.accept(apply(a));
     }
 
@@ -35,11 +39,13 @@ public interface Function1<A, R> extends Function<A, R> {
      * Functional composition
      */
     default Function0<R> compose(Supplier<A> f) {
+        requireNonNull(f);
         return () -> apply(f.get());
     }
 
     @Override
     default <RR> Function1<RR, R> compose(Function<? super RR, ? extends A> g) {
+        requireNonNull(g);
         return x -> apply(g.apply(x));
     }
 
@@ -47,6 +53,7 @@ public interface Function1<A, R> extends Function<A, R> {
      * Functional composition
      */
     default <AA, B> Function2<AA, B, R> compose(BiFunction<AA, B, A> g) {
+        requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b));
     }
 

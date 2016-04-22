@@ -7,6 +7,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents function taking 2 arguments and returning no value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
@@ -29,6 +31,8 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
      * Functional composition
      */
     default <AA, BB> Procedure2<AA, BB> compose(Function<AA, A> gA, Function<BB, B> gB) {
+        requireNonNull(gA);
+        requireNonNull(gB);
         return (a, b) -> apply(gA.apply(a), gB.apply(b));
     }
 
@@ -36,6 +40,8 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
      * Functional composition
      */
     default <BB> Procedure1<BB> compose(Supplier<A> gA, Function<BB, B> gB) {
+        requireNonNull(gA);
+        requireNonNull(gB);
         return b -> apply(gA.get(), gB.apply(b));
     }
 
@@ -43,6 +49,8 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
      * Functional composition
      */
     default <AA> Procedure1<AA> compose(Function<AA, A> gA, Supplier<B> gB) {
+        requireNonNull(gA);
+        requireNonNull(gB);
         return b -> apply(gA.apply(b), gB.get());
     }
 
@@ -50,6 +58,8 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
      * Functional composition
      */
     default Procedure0 compose(Supplier<A> gA, Supplier<B> gB) {
+        requireNonNull(gA);
+        requireNonNull(gB);
         return () -> apply(gA.get(), gB.get());
     }
 
@@ -57,6 +67,7 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
      * Functional composition for right argument
      */
     default <BB> Procedure2<A, BB> composeRight(BiFunction<A, BB, B> g) {
+        requireNonNull(g);
         return (a, b) -> apply(a, g.apply(a, b));
     }
 
@@ -64,6 +75,7 @@ public interface Procedure2<A, B> extends BiConsumer<A, B> {
      * Functional composition for left argument
      */
     default <AA> Procedure2<AA, B> composeLeft(BiFunction<AA, B, A> g) {
+        requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b), b);
     }
 

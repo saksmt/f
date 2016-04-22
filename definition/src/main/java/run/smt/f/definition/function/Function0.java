@@ -6,6 +6,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents function with no arguments and a return value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
@@ -26,6 +28,7 @@ public interface Function0<R> extends Supplier<R> {
      * Reverse functional composition
      */
     default <RR> Function0<RR> andThen(Function<R, RR> g) {
+        requireNonNull(g);
         return () -> g.apply(apply());
     }
 
@@ -33,6 +36,7 @@ public interface Function0<R> extends Supplier<R> {
      * Reverse functional composition
      */
     default Procedure0 andThen(Consumer<R> g) {
+        requireNonNull(g);
         return () -> g.accept(apply());
     }
 

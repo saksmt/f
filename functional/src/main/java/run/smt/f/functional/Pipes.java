@@ -19,27 +19,27 @@ import static run.smt.f.functional.Cast.f;
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 public interface Pipes {
-    static <R, RR> Function0<RR> pipe(Supplier<R> f, Function<R, RR> g) {
+    static <R, RR> Function0<RR> pipe(Supplier<R> f, Function<? super R, ? extends RR> g) {
         return f(f).andThen(g);
     }
 
-    static <R> Procedure0 pipe(Supplier<R> f, Consumer<R> g) {
+    static <R> Procedure0 pipe(Supplier<R> f, Consumer<? super R> g) {
         return f(f).andThen(g);
     }
 
-    static <A, R, RR> Function1<A, RR> pipe(Function<A, R> f, Function<R, RR> g) {
+    static <A, R, RR> Function1<A, RR> pipe(Function<A, R> f, Function<? super R, ? extends RR> g) {
         return f(f).andThen(g);
     }
 
-    static <A, R> Procedure1<A> pipe(Function<A, R> f, Consumer<R> g) {
+    static <A, R> Procedure1<A> pipe(Function<A, R> f, Consumer<? super R> g) {
         return f(f).andThen(g);
     }
 
-    static <A, B, R, RR> Function2<A, B, RR> pipe(BiFunction<A, B, R> f, Function<R, RR> g) {
+    static <A, B, R, RR> Function2<A, B, RR> pipe(BiFunction<A, B, R> f, Function<? super R, ? extends RR> g) {
         return f(f).andThen(g);
     }
 
-    static <A, B, R> Procedure2<A, B> pipe(BiFunction<A, B, R> f, Consumer<R> g) {
+    static <A, B, R> Procedure2<A, B> pipe(BiFunction<A, B, R> f, Consumer<? super R> g) {
         return f(f).andThen(g);
     }
 }

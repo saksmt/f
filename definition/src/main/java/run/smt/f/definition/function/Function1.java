@@ -2,49 +2,58 @@ package run.smt.f.definition.function;
 
 import run.smt.f.definition.procedure.Procedure1;
 
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents function with one argument and a return value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 @FunctionalInterface
-public interface Function1<A, R> {
+public interface Function1<A, R> extends Function<A, R> {
     /**
      * Execute function
      */
+    @Override
     R apply(A a);
 
-    /**
-     * Reverse functional composition
-     */
-    default <RR> Function1<A, RR> andThen(Function1<R, RR> g) {
+    @Override
+    default <RR> Function1<A, RR> andThen(Function<? super R, ? extends RR> g) {
+        requireNonNull(g);
         return a -> g.apply(apply(a));
     }
 
     /**
      * Reverse functional composition
      */
-    default Procedure1<A> andThen(Procedure1<R> g) {
-        return a -> g.apply(apply(a));
+    default Procedure1<A> andThen(Consumer<? super R> g) {
+        requireNonNull(g);
+        return a -> g.accept(apply(a));
     }
 
     /**
      * Functional composition
      */
-    default Function0<R> compose(Function0<A> f) {
-        return () -> apply(f.apply());
+    default Function0<R> compose(Supplier<? extends A> f) {
+        requireNonNull(f);
+        return () -> apply(f.get());
     }
 
-    /**
-     * Functional composition
-     */
-    default <AA> Function1<AA, R> compose(Function1<AA, A> g) {
+    @Override
+    default <RR> Function1<RR, R> compose(Function<? super RR, ? extends A> g) {
+        requireNonNull(g);
         return x -> apply(g.apply(x));
     }
 
     /**
      * Functional composition
      */
-    default <AA, B> Function2<AA, B, R> compose(Function2<AA, B, A> g) {
+    default <AA, B> Function2<AA, B, R> compose(BiFunction<? super AA, ? super B, ? extends A> g) {
+        requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b));
     }
 

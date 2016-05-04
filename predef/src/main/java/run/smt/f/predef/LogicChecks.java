@@ -41,15 +41,15 @@ public interface LogicChecks {
         return a -> !((a == arg) || (a != null && a.equals(arg)));
     }
 
-    static Predicate1<?> isNull() {
+    static <A> Predicate1<A> isNull() {
         return a -> a == null;
     }
 
-    static Predicate1<?> isNotNull() {
+    static <A> Predicate1<A> isNotNull() {
         return a -> a != null;
     }
 
-    static <A> Predicate1<Object> isInstanceOf(Class<A> clazz) {
+    static <A> Predicate1<A> isInstanceOf(Class clazz) {
         return a -> a != null && a.getClass().isAssignableFrom(clazz);
     }
 }

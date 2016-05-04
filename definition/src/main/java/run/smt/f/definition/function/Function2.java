@@ -1,101 +1,119 @@
 package run.smt.f.definition.function;
 
-import run.smt.f.definition.procedure.Procedure1;
 import run.smt.f.definition.procedure.Procedure2;
+
+import java.util.function.*;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents function taking 2 arguments and returning a value
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
 @FunctionalInterface
-public interface Function2<A, B, R> {
+public interface Function2<A, B, R> extends BiFunction<A, B, R> {
     /**
      * Executes function
      */
+    @Override
     R apply(A a, B b);
 
     /**
      * Functional composition for left argument
      */
-    default <AA> Function2<AA, B, R> composeLeft(Function2<AA, B, A> g) {
+    default <AA> Function2<AA, B, R> composeLeft(BiFunction<? super AA, ? super B, ? extends A> g) {
+        requireNonNull(g);
         return (a, b) -> apply(g.apply(a, b), b);
     }
 
     /**
      * Functional composition for right argument
      */
-    default <BB> Function2<A, BB, R> composeRight(Function2<A, BB, B> g) {
+    default <BB> Function2<A, BB, R> composeRight(BiFunction<? super A, ? super BB, ? extends B> g) {
+        requireNonNull(g);
         return (a, b) -> apply(a, g.apply(a, b));
     }
 
     /**
      * Functional composition
      */
-    default <AA, BB> Function2<AA, BB, R> compose(Function1<AA, A> gA, Function1<BB, B> gB) {
+    default <AA, BB> Function2<AA, BB, R> compose(Function<? super AA, ? extends A> gA, Function<? super BB, ? extends B> gB) {
+        requireNonNull(gA);
+        requireNonNull(gB);
         return (a, b) -> apply(gA.apply(a), gB.apply(b));
     }
 
     /**
      * Functional composition
      */
-    default <AA> Function1<AA, R> compose(Function1<AA, A> gA, Function0<B> gB) {
-        return (a) -> apply(gA.apply(a), gB.apply());
+    default <AA> Function1<AA, R> compose(Function<? super AA, ? extends A> gA, Supplier<? extends B> gB) {
+        requireNonNull(gA);
+        requireNonNull(gB);
+        return a -> apply(gA.apply(a), gB.get());
     }
 
     /**
      * Functional composition
      */
-    default <BB> Function1<BB, R> compose(Function0<A> gB, Function1<BB, B> gA) {
-        return (a) -> apply(gB.apply(), gA.apply(a));
+    default <BB> Function1<BB, R> compose(Supplier<? extends A> gB, Function<? super BB, ? extends B> gA) {
+        requireNonNull(gA);
+        requireNonNull(gB);
+        return a -> apply(gB.get(), gA.apply(a));
     }
 
     /**
      * Functional composition
      */
-    default Function0<R> compose(Function0<A> gA, Function0<B> gB) {
-        return () -> apply(gA.apply(), gB.apply());
+    default Function0<R> compose(Supplier<? extends A> gA, Supplier<? extends B> gB) {
+        requireNonNull(gA);
+        requireNonNull(gB);
+        return () -> apply(gA.get(), gB.get());
     }
 
 
-    /**
-     * Reverse functional composition
-     */
-    default <RR> Function2<A, B, RR> andThen(Function1<R, RR> g) {
+    @Override
+    default <RR> Function2<A, B, RR> andThen(Function<? super R, ? extends RR> g) {
+        requireNonNull(g);
         return (a, b) -> g.apply(apply(a, b));
     }
 
     /**
      * Reverse functional composition
      */
-    default Procedure2<A, B> andThen(Procedure1<R> g) {
-        return (a, b) -> g.apply(apply(a, b));
+    default Procedure2<A, B> andThen(Consumer<? super R> g) {
+        requireNonNull(g);
+        return (a, b) -> g.accept(apply(a, b));
     }
 
     /**
      * Reverse functional composition for right argument
      */
-    default Procedure2<A, B> andThenRight(Procedure2<A, R> g) {
+    default Procedure2<A, B> andThenRight(BiConsumer<? super A, ? super R> g) {
+        requireNonNull(g);
+        return (a, b) -> g.accept(a, apply(a, b));
+    }
+
+    /**
+     * Reverse functional composition for left argument
+     */
+    default Procedure2<A, B> andThenLeft(BiConsumer<? super R, ? super B> g) {
+        requireNonNull(g);
+        return (a, b) -> g.accept(apply(a, b), b);
+    }
+
+    /**
+     * Reverse functional composition for right argument
+     */
+    default <RR> Function2<A, B, RR> andThenRight(BiFunction<? super A, ? super R, ? extends RR> g) {
+        requireNonNull(g);
         return (a, b) -> g.apply(a, apply(a, b));
     }
 
     /**
      * Reverse functional composition for left argument
      */
-    default Procedure2<A, B> andThenLeft(Procedure2<R, B> g) {
-        return (a, b) -> g.apply(apply(a, b), b);
-    }
-
-    /**
-     * Reverse functional composition for right argument
-     */
-    default <RR> Function2<A, B, RR> andThenRight(Function2<A, R, RR> g) {
-        return (a, b) -> g.apply(a, apply(a, b));
-    }
-
-    /**
-     * Reverse functional composition for left argument
-     */
-    default <RR> Function2<A, B, RR> andThenLeft(Function2<R, B, RR> g) {
+    default <RR> Function2<A, B, RR> andThenLeft(BiFunction<? super R, ? super B, ? extends RR> g) {
+        requireNonNull(g);
         return (a, b) -> g.apply(apply(a, b), b);
     }
 

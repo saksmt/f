@@ -1,19 +1,25 @@
-package run.smt.f.definition.predicate;
+package run.smt.f.definition.predicate.javapredicate;
 
 import org.junit.Assert;
+import run.smt.f.definition.predicate.Predicate0;
+import run.smt.f.definition.predicate.Predicate1;
+import run.smt.f.definition.predicate.Predicate2;
+
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 /**
  * @author Kirill Saksin <kirillsaksin@yandex.ru>
  */
-public abstract class PredicateTest {
+public abstract class PredicateJPTest {
     protected static final Predicate0 T0 = () -> true;
     protected static final Predicate0 F0 = () -> false;
 
-    protected static final Predicate1<Object> T1 = (a) -> true;
-    protected static final Predicate1<Object> F1 = (a) -> false;
+    protected static final Predicate<Object> T1 = (a) -> true;
+    protected static final Predicate<Object> F1 = (a) -> false;
 
-    protected static final Predicate2<Object, Object> T2 = (a, b) -> true;
-    protected static final Predicate2<Object, Object> F2 = (a, b) -> false;
+    protected static final BiPredicate<Object, Object> T2 = (a, b) -> true;
+    protected static final BiPredicate<Object, Object> F2 = (a, b) -> false;
 
 
     protected static Boolean call(Predicate0 f) {

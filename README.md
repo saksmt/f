@@ -45,7 +45,25 @@ class Example {
 ```xml
 <dependency>
     <groupId>run.smt.f</groupId>
-    <artifactId>all</artifactId>
-    <version>1.0.0</version>
+    <artifactId>definition</artifactId>
+    <version>1.1.0</version>
+</dependency>
+
+<dependency>
+    <groupId>run.smt.f</groupId>
+    <artifactId>functional</artifactId>
+    <version>1.1.0</version>
+</dependency>
+
+<dependency>
+    <groupId>run.smt.f</groupId>
+    <artifactId>predicate</artifactId>
+    <version>1.1.0</version>
+</dependency>
+
+<dependency>
+    <groupId>run.smt.f</groupId>
+    <artifactId>predef</artifactId>
+    <version>1.1.0</version>
 </dependency>
 ```
